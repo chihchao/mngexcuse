@@ -1,0 +1,27 @@
+<a style="margin: 0; padding: 5px 0;" href="<{$block.string.url}>" title="<{$block.string.uname}><{$block.string.information}>"><{$block.string.uname}><{$block.string.information}></a>
+<dl style="margin: 0; padding: 0;">
+<dt style="margin: 0; padding: 5px 0;"><{$block.string.pgsexcuse}></dt>
+<dd style="margin: 0; padding: 0;">
+	<ul style="margin: 0; padding: 0; list-style: none outside;">
+	<{if $block.progress}>
+		<{foreach from=$block.progress item=pgs name=progress}>
+		<li style="margin: 0; padding: 0 0 0 15px; background: url(<{$smarty.const.XOOPS_URL}>/modules/mngexcuse/images/icon_li.png) no-repeat 0 2px;">[<{$pgs.date_bgn|date_format:'%Y-%m-%d'}>] <{$pgs.phases.0}> / <{$pgs.phases.1}></li>
+		<{/foreach}>
+	<{else}>
+		<li style="margin: 0; padding: 0 0 0 15px; background: url(<{$smarty.const.XOOPS_URL}>/modules/mngexcuse/images/icon_li.png) no-repeat 0 2px;"><{$block.string.empty}></li>
+	<{/if}>
+	</ul>
+</dd>
+<dt style="margin: 0; padding: 5px 0;"><{$block.string.chkexcuse}></dt>
+<dd style="margin: 0; padding: 0;">
+	<ul style="margin: 0; padding: 0; list-style: none outside;">
+	<{if $block.check}>
+		<{foreach from=$block.check item=chk name=check}>
+		<li style="margin: 0; padding: 0 0 0 15px; background: url(<{$smarty.const.XOOPS_URL}>/modules/mngexcuse/images/icon_li.png) no-repeat 0 2px;">[<{$chk.excuse_type}>] <{$chk.uname}></li>
+		<{/foreach}>
+	<{else}>
+		<li style="margin: 0; padding: 0 0 0 15px; background: url(<{$smarty.const.XOOPS_URL}>/modules/mngexcuse/images/icon_li.png) no-repeat 0 2px;"><{$block.string.empty}></li>
+	<{/if}>
+	</ul>
+</dd>
+</dl>

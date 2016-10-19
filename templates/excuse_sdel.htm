@@ -1,0 +1,22 @@
+<dl>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_APPLICANT}></dt>
+<dd><{$tplvar.excuse.uname}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_EXCUSETYPE}></dt>
+<dd><{$tplvar.excuse.excuse_type}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DATEBGN}></dt>
+<dd><{$tplvar.excuse.date_bgn|date_format:'%Y-%m-%d %H:%M'}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DATEEND}></dt>
+<dd><{$tplvar.excuse.date_end|date_format:'%Y-%m-%d %H:%M'}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DELEXCUSE}></dt>
+<dd>
+<form action="<{$smarty.server.REQUEST_URI}>" method="post">
+<fieldset>
+<legend><{$smarty.const._MD_MEXCS_EXCUSE_DELEXCUSE}></legend>
+<p><{$smarty.const._MD_MEXCS_EXCUSE_DELCONFIRM}></p>
+<p><{$smarty.const._MD_MEXCS_EXCUSE_DELCONFIRM_DESC}></p>
+<p><textarea name="comment"></textarea></p>
+<input type="submit" value="<{$smarty.const._SEND}>"><input type="hidden" name="submitted" value="true" />
+</fieldset>
+</form>
+</dd>
+</dl>

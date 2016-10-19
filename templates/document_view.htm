@@ -1,0 +1,70 @@
+<dl>
+	<dt><{$smarty.const._MD_MEXCS_DOCUMENT_TITLE}></dt>
+	<dd><{$tplvar.document.title}></dd>
+	<dt><{$smarty.const._MD_MEXCS_DOCUMENT_DESCRIPTION}></dt>
+	<dd><{$tplvar.document.description|nl2br}></dd>
+	<dt><{$smarty.const._MD_MEXCS_DOCUMENT_UNAME}></dt>
+	<dd><{$tplvar.document.uname}></dd>
+	<dt><{$smarty.const._MD_MEXCS_DOCUMENT_DATEEXCUSE}></dt>
+	<dd><{$tplvar.document.date_excuse|date_format:'%Y-%m-%d'}></dd>
+	<dt><{$smarty.const._MD_MEXCS_DOCUMENT_UIDS}></dt>
+	<dd>
+	<ul class="UlliLine">
+		<{foreach from=$tplvar.document.users item=user name=users}>
+		<li><{$user.uname}></li>
+		<{/foreach}>
+	</ul>
+	</dd>
+	<dt><a name="MEXCSDocumentFile"></a><{$smarty.const._MD_MEXCS_DOCUMENT_FILE}></dt>
+	<dd>
+
+	<div id="MEXCSDocumentFileArea">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript">
+		function addFileField(e) {
+			$('#MEXCSDocumentFormFileField').append('<li><input type="file" name="file[]" size="5" /></li>');
+		}
+		function showImage(e) {
+			var src = $(e.target).attr('src');
+			src = src.replace('oprt=tn&', '');
+			$("#MEXCSDocumentFileShow").html('<input type="button" value="<{$smarty.const._MD_MEXCS_DOCUMENT_FILE_VIWCLOSE}>" onclick="hideImage();"><br /><img src="' + src + '" />');
+		}
+		function hideImage() { $("#MEXCSDocumentFileShow").html(''); }
+		$(document).ready(function(e){
+			$(".MEXCSDocumentFileListTN").click(showImage);
+			if ($("#MEXCSDocumentFormAddField").length > 0) {
+				$("#MEXCSDocumentFormAddField").show();
+				$("#MEXCSDocumentFormAddField").click(addFileField);
+			}
+		});
+		</script>	
+		<ul id="MEXCSDocumentFileList">
+			<{foreach from=$tplvar.files item=file name=files}>
+			<div<{if $smarty.foreach.files.iteration % 4 == 1}> class="MEXCSDocumentFileListNewline"<{/if}>>
+			<dt><a href="file.php?file_id=<{$file.id}>" title="<{$file.file_name}>"><{$file.file_name}></a></dt>
+			<dd>
+			<ul>
+			<{if $tplvar.user.write}><li><a href="file.php?oprt=df&file_id=<{$file.id}>"><{$smarty.const._MD_MEXCS_DELETE}></a></li><{/if}>
+			<{if $file.img}><li><a href="#MEXCSDocumentFile"><img class="MEXCSDocumentFileListTN" src="file.php?oprt=tn&file_id=<{$file.id}>" /></a></li><{/if}>
+			</ul>
+			</dd>
+			</div>
+			<{/foreach}>
+		</ul>
+	</div>
+	<div id="MEXCSDocumentFileShow"></div>
+		<{if $tplvar.user.write}>
+		<form action="<{$smarty.server.REQUEST_URI}>" method="post" enctype="multipart/form-data">
+		<fieldset>
+		<legend><{$smarty.const._MD_MEXCS_DOCUMENT_ULDFILE}></legend>
+		<ul id="MEXCSDocumentFormFileField">
+		<li><input type="file" name="file[]" size="5" /></li>
+		</ul>
+		<ul>
+		<li id="MEXCSDocumentFormAddField" style="display: none;"><input type="button" value="<{$smarty.const._MD_MEXCS_DOCUMENT_ADDFIELD}>" /></li>
+		<li><input type="submit" value="<{$smarty.const._MD_MEXCS_DOCUMENT_ULDFILE}>"><input type="hidden" name="submitted" value="true" /></li>
+		</ul>
+		</fieldset></form>
+		<{/if}>
+	</dd>
+<dl>

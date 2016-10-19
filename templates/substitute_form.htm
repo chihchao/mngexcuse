@@ -1,0 +1,17 @@
+<dl>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_APPLICANT}></dt>
+<dd><{$tplvar.excuse.uname}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE}></dt>
+<dd>
+	<p><{$tplvar.excuse.substitute.description}></p>
+</dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE_COMMENT}></dt>
+<dd>
+	<form action="<{$smarty.server.REQUEST_URI}>" method="post">
+	<fieldset>
+	<legend><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE_COMMENT}></legend>
+	<p><textarea name="comment"><{$tplvar.substitute.comment}></textarea></p>
+	<input type="submit" value="<{$smarty.const._SEND}>"><input type="hidden" name="submitted" value="true" />
+	</fieldset>
+	</form>
+</dd>

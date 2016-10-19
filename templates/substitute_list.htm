@@ -1,0 +1,82 @@
+<dl>
+<dt class="MEXCSDisplaynone"><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION}></dt>
+<dd>
+	<form action="substitute.php" method="get">
+	<fieldset>
+		<legend><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION}></legend>
+		<ul>
+		<li><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_YEARBGN}>:
+			<ul class="MEXCSPagelist">
+			<{foreach from=$tplvar.page.yearbgns item=yearbgn}>
+			<li><a href="substitute.php?yearbgn=<{$yearbgn.yearbgn}>" title="<{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_YEARBGN}>: <{$yearbgn.yearbgn}>"><{$yearbgn.yearbgn}></a></li>
+			<{/foreach}>
+			</ul>
+			<input type="hidden" name="yearbgn" value="<{$tplvar.page.yearbgn}>" />
+		</li>
+		<li><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_YEAR}>: 
+			<select name="year">
+			<{foreach from=$tplvar.page.excuse_years item=excuse_year key=excuse_year_id}>
+			<option value="<{$excuse_year_id}>"<{if $tplvar.page.year == $excuse_year_id}> selected="selected"<{/if}>><{$excuse_year.0}></option>
+			<{/foreach}>
+			</select>
+		</li>
+		<li><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_APPLICANT}>: 
+			<select name="user_id">
+			<option value="0"<{if $tplvar.page.user_id == 0}> selected="selected"<{/if}>><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_ALL}></option>
+			<{html_options options=$tplvar.page.excuse_users selected=$tplvar.page.user_id}>
+			</select>
+		</li>
+		<li><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_TYPE}>: 
+			<select name="type">
+			<option value=""<{if $tplvar.page.type == ''}> selected="selected"<{/if}>><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_ALL}></option>
+			<{foreach from=$tplvar.page.excuse_types item=excuse_type}>
+			<option value="<{$excuse_type}>"<{if $tplvar.page.type == $excuse_type}> selected="selected"<{/if}>><{$excuse_type}></option>
+			<{/foreach}>
+			</select>
+		</li>
+		<li><input type="submit" value="<{$smarty.const._SEND}>" /><input type="hidden" name="submitted" value="true" /></li>
+		</ul>
+	</fieldset>
+	</form>
+</dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_LIST_TITLE}></dt>
+<dd>
+	<table>
+	<caption><{$tplvar.page.year_string}><{if $tplvar.page.user_id}><{$tplvar.page.user_name}><{/if}><{$tplvar.page.type}><{$smarty.const._MD_MEXCS_EXCUSE_LIST_TITLE}></caption>
+	<thead>
+		<tr>
+		<th><{$smarty.const._MD_MEXCS_EXCUSE_DATEBGN}></th>
+		<th><{$smarty.const._MD_MEXCS_EXCUSE_DATEEND}></th>
+		<th><{$smarty.const._MD_MEXCS_EXCUSE_EXCUSETYPE}></th>
+		<th><{$smarty.const._MD_MEXCS_EXCUSE_APPLICANT}></th>
+		<th><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT}></th>
+		<th><{$smarty.const._MD_MEXCS_EXCUSE_PHASE_STATE}></th>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+		<td colspan="6">
+			<ul class="MEXCSPagelist">
+				<{if $tplvar.page.pages}><li><a href="substitute.php?oprt=lst&user_id=<{$tplvar.page.user_id}>&year=<{$tplvar.page.year}>&page=-1&type=<{$tplvar.page.type_url}>" title="Page all">[<{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_ALL}>]</a></li><{/if}>
+				<{section name=pages start=0 step=1 loop=$tplvar.page.pages}>
+				<li<{if $smarty.section.pages.index == $tplvar.page.page}> class="PageThis"<{/if}>><a href="substitute.php?oprt=lst&user_id=<{$tplvar.page.user_id}>&year=<{$tplvar.page.year}>&page=<{$smarty.section.pages.index}>&type=<{$tplvar.page.type_url}>" title="Page <{$smarty.section.pages.index_next}>">[<{$smarty.section.pages.index_next}>]</a></li>
+				<{/section}>
+			</ul>
+		</td>
+		</tr>
+	</tfoot>
+	<tbody>
+	<{foreach from=$tplvar.excuses item=excuse}>
+		<tr class="MEXCSExcuseState<{$excuse.state}>">
+		<td><a href="excuse.php?oprt=viw&excs_id=<{$excuse.id}>"><{$excuse.date_bgn|date_format:'%Y-%m-%d %H:%M'}></a></td>
+		<td><a href="excuse.php?oprt=viw&excs_id=<{$excuse.id}>"><{$excuse.date_end|date_format:'%Y-%m-%d %H:%M'}></a></td>
+		<td><{$excuse.excuse_type}></td>
+		<td><{$excuse.uname}></td>
+		<td><{$excuse.date_count_day}><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_DAY}> <{$excuse.date_count_hour}><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_HOUR}></td>
+		<td><{$excuse.state_string}></td>
+		</tr>
+	<{/foreach}>
+	</tbody>
+	</table>
+</dd>
+</dl>

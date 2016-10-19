@@ -1,0 +1,16 @@
+body {padding:20px;}
+table { border-collapse: collapse; width: 99%; border-left:  1px solid #000; border-top: 1px solid #000; }
+table td, th{ vertical-align: top; padding: 5px; border-right:  1px solid #000; border-bottom: 1px solid #000; font-size: 12pt; }
+table caption { padding: 5px; text-align: left; font-weight: bold; border:  1px solid #000; }
+table table { margin: 5px; }
+h3 { margin: 0; padding: 0; font-size: 12pt; }
+p { margin: 0; padding: 0 0 5px 0; }
+ul { margin: 0; padding: 0; list-style-type: none; }
+li { padding: 5px 0; }
+img { vertical-align: top; }
+.TDTitle { font-weight: bold; background: #EEE; white-space: nowrap; }
+.PGTitle { font-weight: bold; font-size: 14pt; }
+.MEXCSExcuseState1 { background: #BBB; }
+.MEXCSExcuseState2 { background: #888; }
+.MEXCSExcuseState3 { background: #FFF; }
+.MEXCSExcuseState4 { background: #444; }

@@ -1,0 +1,81 @@
+<{if $tplvar.page.user_id == ''}>
+<dl>
+<dt class="MEXCSDisplaynone"><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION}></dt>
+<dd>
+	<form action="personnel.php" method="get">
+	<fieldset>
+		<legend><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION}></legend>
+		<ul>
+		<li><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_YEARBGN}>:
+			<ul class="MEXCSPagelist">
+			<{foreach from=$tplvar.page.yearbgns item=yearbgn}>
+			<li<{if $yearbgn.yearbgn == $tplvar.page.yearbgn}> class="PageThis"<{/if}>><a href="personnel.php?oprt=lev&yearbgn=<{$yearbgn.yearbgn}>" title="<{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_YEARBGN}>: <{$yearbgn.yearbgn}>"><{$yearbgn.yearbgn}></a></li>
+			<{/foreach}>
+			</ul>
+			<input type="hidden" name="yearbgn" value="<{$tplvar.page.yearbgn}>" />
+		</li>
+		<li><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_YEAR}>: 
+			<select name="year">
+			<{foreach from=$tplvar.page.excuse_years item=excuse_year key=excuse_year_id}>
+			<option value="<{$excuse_year_id}>"<{if $tplvar.page.year == $excuse_year_id}> selected="selected"<{/if}>><{$excuse_year.0}></option>
+			<{/foreach}>
+			</select>
+		</li>
+		<li><input type="submit" value="<{$smarty.const._SEND}>" /><input type="hidden" name="oprt" value="lev" /></li>
+		</ul>
+	</fieldset>
+	</form>
+</dd>
+<dt><{$smarty.const._MD_MEXCS_PERSONNEL_LEAVE_DAYS}></dt>
+<dd>
+	<p><{$smarty.const._MD_MEXCS_PERSONNEL_LEAVE_DESC}></p>
+	<table>
+	<caption><{$tplvar.page.year_string}></caption>
+	<thead>
+		<tr>
+		<th><{$smarty.const._MD_MEXCS_EXCUSE_APPLICANT}></th>
+		<{foreach from=$tplvar.page.excuse_types item=excuse_type}>
+		<th><{$excuse_type}></th>
+		<{/foreach}>
+		</tr>
+	</thead>
+	<tbody>
+	<{foreach from=$tplvar.users item=user key=user_id}>
+		<tr>
+		<td><a href="personnel.php?oprt=lev&user_id=<{$user_id}>&year=<{$tplvar.page.year}>" title="<{$user.uname}>"><{$user.uname}></a></td>
+		<{foreach from=$user.leaves item=leave}>
+		<td><{$leave.0}><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_DAY}> <{$leave.1}><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_HOUR}></td>
+		<{/foreach}>
+		</tr>
+	<{/foreach}>
+	</tbody>
+	</table>
+</dd>
+</dl>
+<{else}>
+<p><{$smarty.const._MD_MEXCS_PERSONNEL_LEAVE_DESC}></p>
+<form action="<{$smarty.server.REQUEST_URI}>" method="post">
+<fieldset>
+<legend><{$smarty.const._MD_MEXCS_PERSONNEL_LEAVE}></legend>
+<dl>
+<dt><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_YEAR}></dt>
+<dd><{$tplvar.page.year_string}></dd>
+<dt><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_APPLICANT}></dt>
+<dd><{$tplvar.page.user_name}></dd>
+<dt><{$smarty.const._MD_MEXCS_PERSONNEL_CONDITION_TYPE}></dt>
+<dd>
+	<ul>
+		<{foreach from=$tplvar.excuse_types item=excuse_type_item key=excuse_type}>
+		<li><{$excuse_type}>: 
+		<input type="text" class="MEXCSFormFieldShort" name="day[]" value="<{$excuse_type_item.0}>" /><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_DAY}>
+	<input type="text" class="MEXCSFormFieldShort" name="hour[]" value="<{$excuse_type_item.1}>" /><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_HOUR}>
+		</li>
+		<{/foreach}>
+	</ul>
+</dd>
+<dd>
+	<input type="submit" value="<{$smarty.const._SEND}>"><input type="hidden" name="submitted" value="true" />
+</dd>
+</fieldset>
+</form>
+<{/if}>

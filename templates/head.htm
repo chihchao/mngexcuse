@@ -1,0 +1,15 @@
+<h2><a href="index.php"><{$tplvar.page.module_name}> ( <{$tplvar.user.uname}> )</a></h2>
+<ul id="MEXCSToolbar">
+<li><a href="index.php" title="<{$smarty.const._MD_MEXCS_HEAD_HOMEPAGE}>"><{$smarty.const._MD_MEXCS_HEAD_HOMEPAGE}></a></li>
+<{if $tplvar.user.excuse_user}>
+<li><a href="excuse.php?oprt=apl" title="<{$smarty.const._MD_MEXCS_HEAD_APLEXCUSE}>"><{$smarty.const._MD_MEXCS_HEAD_APLEXCUSE}></a></li>
+<li><a href="excuse.php" title="<{$smarty.const._MD_MEXCS_HEAD_EXCUSE}>"><{$smarty.const._MD_MEXCS_HEAD_EXCUSE}></a></li>
+<{/if}>
+<li><a href="document.php" title="<{$smarty.const._MD_MEXCS_HEAD_DOCUMENT}>"><{$smarty.const._MD_MEXCS_HEAD_DOCUMENT}></a></li>
+<{if $tplvar.user.personnel}>
+<li><a href="personnel.php" title="<{$smarty.const._MD_MEXCS_HEAD_PERSONNEL}>"><{$smarty.const._MD_MEXCS_HEAD_PERSONNEL}></a></li>
+<{/if}>
+<{if $tplvar.user.substitute_mng}>
+<li><a href="substitute.php" title="<{$smarty.const._MD_MEXCS_HEAD_SUBSTITUTEMNG}>"><{$smarty.const._MD_MEXCS_HEAD_SUBSTITUTEMNG}></a></li>
+<{/if}>
+</ul>

@@ -1,0 +1,50 @@
+<{if $tplvar.page.oprt == 'add'}>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+function addFileField(e) {
+	$('#MEXCSDocumentFormFileField').append('<li><input type="file" name="file[]" size="5" /></li>');
+}
+$(document).ready(function(e){
+	if ($("#MEXCSDocumentFormAddField").length > 0) {
+		$("#MEXCSDocumentFormAddField").show();
+		$("#MEXCSDocumentFormAddField").click(addFileField);
+	}
+});
+</script>
+<{/if}>
+<form method="post" action="<{$smarty.server.REQUEST_URI}>" enctype="multipart/form-data">
+<fieldset>
+<legend>
+<{$tplvar.page.title}>
+</legend>
+<dl>
+	<dt><label for="MEXCSDocumentFormTitle"><{$smarty.const._MD_MEXCS_DOCUMENT_TITLE}></label></dt>
+	<dd><input type="text" id="MEXCSDocumentFormTitle" name="title" value="<{$tplvar.document.title}>" /></dd>
+	<dt><label for="MEXCSDocumentFormDescription"><{$smarty.const._MD_MEXCS_DOCUMENT_DESCRIPTION}></label></dt>
+	<dd><textarea id="MEXCSDocumentFormDescription" name="description"><{$tplvar.document.description}></textarea></dd>
+	<dt><label for="MEXCSDocumentFormDateExcuse"><{$smarty.const._MD_MEXCS_DOCUMENT_DATEEXCUSE}></label></dt>
+	<dd>
+	<{html_select_date prefix='date_excuse_' field_order='YMD' field_separator='-' time=$tplvar.document.date_excuse start_year='-1' end_year='+1' month_format='%m' year_extra='id="MEXCSDocumentFormDateExcuse"'}>
+	</dd>
+	<dt><label for="MEXCSDocumentFormUids"><{$smarty.const._MD_MEXCS_DOCUMENT_UIDS}></label></dt>
+	<dd>
+	<select id="MEXCSDocumentFormUids" name="uids[]" multiple="multiple" size="5">
+	<{html_options options=$tplvar.users selected=$tplvar.document.uids}>
+	</select>
+	<p><{$smarty.const._MD_MEXCS_DOCUMENT_UIDS_DESC}></p>
+	</dd>
+	<{if $tplvar.page.oprt == 'add'}>
+	<dt><{$smarty.const._MD_MEXCS_DOCUMENT_ULDFILE}></dt>
+	<dd>
+		<ul id="MEXCSDocumentFormFileField">
+		<li><input type="file" name="file[]" size="5" /></li>
+		</ul>
+		<ul>
+		<li id="MEXCSDocumentFormAddField" style="display: none;"><input type="button" value="<{$smarty.const._MD_MEXCS_DOCUMENT_ADDFIELD}>" /></li>
+		</ul>
+	</dd>
+	<{/if}>
+	<dd><input type="submit" value="<{$smarty.const._SEND}>" /><input type="reset" value="<{$smarty.const._MD_MEXCS_RESET}>" /><input type="hidden" name="submitted" value="true" /></dd>
+</dl>
+</fieldset>
+</form>

@@ -1,0 +1,248 @@
+<p><{$tplvar.form.excuse_statement|nl2br}></p>
+
+<{if $tplvar.form.substitute}>
+	<script language="javascript" type="text/javascript" src="tinymce/tiny_mce.js"></script>
+<{/if}>
+<script type="text/javascript" src="js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="js/jquery.datetimepicker.css" />
+<script src="js/jquery.datetimepicker.js"></script>
+
+<script type="text/javascript">
+<{if $tplvar.form.substitute}>
+	function showSubstitute() { $("#MEXCSExcuseFormSubstituteField").show(); }
+	function hideSubstitute() { $("#MEXCSExcuseFormSubstituteField").hide(); }
+	function fadeInSubstitute() { $("#MEXCSExcuseFormSubstituteField").fadeIn("slow"); }
+	function fadeOutSubstitute() { $("#MEXCSExcuseFormSubstituteField").fadeOut("slow"); }
+<{/if}>
+function fadeDocumentNone() {
+	$("#MEXCSExcuseFormDocumentSelectField").hide();
+	$("#MEXCSExcuseFormDocumentNewField").hide();
+}
+function fadeDocumentSelect() {
+	$("#MEXCSExcuseFormDocumentNewField").hide();
+	$("#MEXCSExcuseFormDocumentSelectField").fadeIn("slow");
+}
+function fadeDocumentNew() {
+	$("#MEXCSExcuseFormDocumentSelectField").hide();
+	$("#MEXCSExcuseFormDocumentNewField").fadeIn("slow");
+}
+function addFileField(e) {
+	$('#MEXCSDocumentFormFileField').append('<li><input type="file" name="file[]" size="5" /></li>');
+}
+<{if $tplvar.form.substitute}>
+function ra_tinymce() {
+		tinyMCE.init({
+			mode : "specific_textareas",
+			editor_selector : "MEXCSExcuseFormSubstituteDESCTinyMCE",
+			theme : "advanced",
+			language : "zh-tw",
+			remove_linebreaks : false,
+			apply_source_formatting : true,
+			content_css : "tinymce/css/content.css",
+			plugins : "searchreplace,",
+			theme_advanced_buttons1 : "",
+			theme_advanced_buttons2 : "",
+			theme_advanced_buttons3 : "",
+			theme_advanced_toolbar_location : "top",
+			theme_advanced_toolbar_align : "left",
+			theme_advanced_resizing : true,
+		});
+		$('#MEXCSExcuseFormSubstituteDESC').width('600px');
+		$('#MEXCSExcuseFormSubstituteDESC').height('400px');
+}
+<{/if}>
+$(document).ready(function(e){
+	<{if $tplvar.form.substitute}>
+		ra_tinymce();
+		$("#MEXCSExcuseFormSubstituteYesSpan").click(fadeInSubstitute);
+		$("#MEXCSExcuseFormSubstituteNoSpan").click(fadeOutSubstitute);
+		if ($("#MEXCSExcuseFormSubstituteNo").attr('checked')) {
+			hideSubstitute();
+		} else {
+			showSubstitute();
+		}
+	<{/if}>
+	$("#MEXCSExcuseFormDocumentNoneSpan").click(fadeDocumentNone);
+	$("#MEXCSExcuseFormDocumentSelectSpan").click(fadeDocumentSelect);
+	$("#MEXCSExcuseFormDocumentNewSpan").click(fadeDocumentNew);
+	if ($("#MEXCSExcuseFormDocumentSelect").attr('checked')) {
+		$("#MEXCSExcuseFormDocumentNewField").hide();
+	} else {
+		$("#MEXCSExcuseFormDocumentNone").attr('checked', 'checked');
+		fadeDocumentNone();
+	}
+	if ($("#MEXCSDocumentFormAddField").length > 0) {
+		$("#MEXCSDocumentFormAddField").show();
+		$("#MEXCSDocumentFormAddField").click(addFileField);
+	}
+	$('#MEXCSExcuseFormDateBGN').datetimepicker({
+		value: new Date(<{$tplvar.form.date_bgn}>*1000),
+		format:'Y-m-d H:i',
+		lang:'zh-TW',
+		step:5
+	});
+	$('#MEXCSExcuseFormDateEND').datetimepicker({
+		value: new Date(<{$tplvar.form.date_end}>*1000),
+		format:'Y-m-d H:i',
+		lang:'zh-TW',
+		step:5
+	});
+	$("#MEXCSExcuseForm").submit(function () {
+		var dt_bgn = new Date($("#MEXCSExcuseFormDateBGN").val());
+		var dt_end = new Date($("#MEXCSExcuseFormDateEND").val());
+		if (dt_bgn.valueOf() > dt_end.valueOf()) {
+			alert('<{$smarty.const._MD_MEXCS_ERRMESSAGE_ERRDATEBGNTOEND}>');
+			return false;
+		}
+		if ($("#MEXCSExcuseFormDateCount").val() == '' && $("#MEXCSExcuseFormDateCount2").val() == '') {
+			alert('<{$smarty.const._MD_MEXCS_ERRMESSAGE_NODATECOUNT}>');
+			return false;
+		}
+		for (i = 0; i < $("#MEXCSExcuseProcedure").children('li').length; i ++) {
+			if ($("#MEXCSExcuseProcedure").children('li').eq(i).children('select').length) {
+				if ($("#MEXCSExcuseProcedure").children('li').eq(i).children('select').val() == 0) {
+					alert('<{$smarty.const._MD_MEXCS_ERRMESSAGE_NOPHASECHECKER}>');
+					return false;
+				}
+			}
+		}
+		return true;
+	});
+});
+</script>
+
+
+
+<form id="MEXCSExcuseForm" method="post" action="<{$smarty.server.REQUEST_URI}>" enctype="multipart/form-data">
+<fieldset>
+<legend>
+<{$tplvar.page.title}>
+</legend>
+<dl>
+	<dt><label for="MEXCSExcuseFormAppointment"><{$smarty.const._MD_MEXCS_EXCUSE_APPOINTMENT}></label></dt>
+	<dd>
+	<select name="appointment" id="MEXCSExcuseFormAppointment">
+	<{html_options values=$tplvar.form.appointment selected=$tplvar.excuse.appointment output=$tplvar.form.appointment}>
+	</select>
+	</dd>
+	<dt><label for="MEXCSExcuseFormExcuse"><{$smarty.const._MD_MEXCS_EXCUSE_EXCUSETYPE}></label></dt>
+	<dd>
+	<select name="excuse_type" id="MEXCSExcuseFormExcuse">
+	<{html_options values=$tplvar.form.excuse selected=$tplvar.excuse.excuse_type output=$tplvar.form.excuse}>
+	</select>
+	</dd>
+	<dt><label for="MEXCSExcuseFormDescription"><{$smarty.const._MD_MEXCS_EXCUSE_DESCRIPTION}></label></dt>
+	<dd><textarea id="MEXCSExcuseFormDescription" name="description"><{if $tplvar.page.oprt == 'edt'}><{$tplvar.excuse.description}><{/if}></textarea></dd>
+	<dt><label for="MEXCSExcuseFormDateBGN"><{$smarty.const._MD_MEXCS_EXCUSE_DATEBGN}></label></dt>
+	<dd>
+	<!--
+	<{html_select_date prefix='date_bgn_' field_order='YMD' field_separator='-' time=$tplvar.form.date_bgn start_year='-1' end_year='+1' month_format='%m' year_extra='id="MEXCSExcuseFormDateBGN"' month_extra='id="MEXCSExcuseFormDateBGNMTH"' day_extra='id="MEXCSExcuseFormDateBGNDAY"'}>
+	<{html_select_time prefix='date_bgn_' time=$tplvar.form.date_bgn minute_interval=5 use_24_hours=true display_seconds=false hour_extra='id="MEXCSExcuseFormTimeBGNHUR"' minute_extra='id="MEXCSExcuseFormTimeBGNMNT"'}>
+	-->
+	<input type="text" value="" name="date_bgn" id="MEXCSExcuseFormDateBGN"/>
+	</dd>
+	<dt><label for="MEXCSExcuseFormDateEND"><{$smarty.const._MD_MEXCS_EXCUSE_DATEEND}></label></dt>
+	<dd>
+	<!--
+	<{html_select_date prefix='date_end_' field_order='YMD' field_separator='-' time=$tplvar.form.date_end start_year='-1' end_year='+1' month_format='%m' year_extra='id="MEXCSExcuseFormDateEND"' month_extra='id="MEXCSExcuseFormDateENDMTH"' day_extra='id="MEXCSExcuseFormDateENDDAY"'}>
+	<{html_select_time prefix='date_end_' time=$tplvar.form.date_end minute_interval=5 use_24_hours=true display_seconds=false hour_extra='id="MEXCSExcuseFormTimeENDHUR"' minute_extra='id="MEXCSExcuseFormTimeENDMNT"'}>
+	-->
+	<input type="text" value="" name="date_end" id="MEXCSExcuseFormDateEND"/>
+	</dd>
+	<dt><label for="MEXCSExcuseFormDateCount"><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT}></label></dt>
+	<dd>
+	<input type="text" id="MEXCSExcuseFormDateCount" class="MEXCSFormFieldShort" name="date_count[]"<{if $tplvar.page.oprt == 'edt'}> value="<{$tplvar.excuse.date_count_day}>"<{/if}> /><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_DAY}>
+	<input type="text" id="MEXCSExcuseFormDateCount2" class="MEXCSFormFieldShort" name="date_count[]"<{if $tplvar.page.oprt == 'edt'}> value="<{$tplvar.excuse.date_count_hour}>"<{/if}> /><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_HOUR}>
+	</dd>
+	<dt><{$smarty.const._MD_MEXCS_EXCUSE_PHASE}></dt>
+	<dd>
+		<ul id="MEXCSExcuseProcedure">
+			<{foreach from=$tplvar.phases item=phase name=phases}>
+			<li><{$phase.phase}>: 
+			<{if $tplvar.page.oprt == 'apl' || $phase.pass.0 == 0}>
+			<select name="phase_checker[<{$phase.odr}>]">
+			<{html_options options=$phase.checkers selected=$phase.pass.1}>
+			</select>
+			<{else}>
+			<{$phase.pass.1}> / <{$phase.pass.2}>
+			<{/if}>
+			</li>
+			<{/foreach}>
+		</ul>
+	</dd>
+	<{if $tplvar.form.substitute}>
+	<dt><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE}></dt>
+	<dd>
+		<span id="MEXCSExcuseFormSubstituteNoSpan">
+			<input type="radio" id="MEXCSExcuseFormSubstituteNo" name="substitute" value="0"<{if $tplvar.page.oprt == 'apl' || ($tplvar.page.oprt == 'edt' && !$tplvar.excuse.substitute)}> checked="checked"<{/if}> />
+			<label for="MEXCSExcuseFormSubstituteNo"><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE_NO}></label>
+		</span>
+		<span id="MEXCSExcuseFormSubstituteYesSpan">
+			<input type="radio" id="MEXCSExcuseFormSubstituteYes" name="substitute" value="1"<{if $tplvar.page.oprt == 'edt' && $tplvar.excuse.substitute}> checked="checked"<{/if}> />
+			<label for="MEXCSExcuseFormSubstituteYes"><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE_YES}></label>
+		</span>
+		<div id="MEXCSExcuseFormSubstituteField">
+		<p><{$tplvar.form.substitute_stm|nl2br}></p>
+		<textarea id="MEXCSExcuseFormSubstituteDESC" class="MEXCSExcuseFormSubstituteDESCTinyMCE" name="substitute_desc"><{$tplvar.form.substitute_desc}></textarea>
+		</div>
+	</dd>
+	<{/if}>
+	<dt><label for="MEXCSExcuseFormDocument"><{$smarty.const._MD_MEXCS_EXCUSE_DOCUMENT}></label></dt>
+	<dd>
+		<span id="MEXCSExcuseFormDocumentNoneSpan">
+			<input type="radio" id="MEXCSExcuseFormDocumentNone" name="document_son" value="2" />
+			<label for="MEXCSExcuseFormDocumentNone"><{$smarty.const._MD_MEXCS_EXCUSE_DOCUMENT_NONE}></label>
+		</span>
+		<span id="MEXCSExcuseFormDocumentSelectSpan">
+			<input type="radio" id="MEXCSExcuseFormDocumentSelect" name="document_son" value="1"<{if $tplvar.excuse.dcmt_id}> checked="checked"<{/if}> />
+			<label for="MEXCSExcuseFormDocumentSelect"><{$smarty.const._MD_MEXCS_EXCUSE_DOCUMENT_SELECT}></label>
+		</span>
+		<span id="MEXCSExcuseFormDocumentNewSpan">
+			<input type="radio" id="MEXCSExcuseFormDocumentNew" name="document_son" value="0" />
+			<label for="MEXCSExcuseFormDocumentNew"><{$smarty.const._MD_MEXCS_EXCUSE_DOCUMENT_NEW}></label>
+		</span>
+	<div id="MEXCSExcuseFormDocumentSelectField">
+	<p><{$smarty.const._MD_MEXCS_EXCUSE_DOCUMENT_DESC}></p>
+	<select name="dcmt_id" id="MEXCSExcuseFormDocument">
+	<{html_options options=$tplvar.form.dcmts selected=$tplvar.excuse.dcmt_id}>
+	</select>
+	</div>
+	<!--
+	<p><{$tplvar.form.dcmts_more}><input type="button" id="MEXCSExcuseFormDocumentMore" value="<{$smarty.const._MD_MEXCS_EXCUSE_DOCUMENT_MORE}>" /></p>
+	<ul class="MEXCSPagelist" id="MEXCSExcuseFormDocumentPages">
+		<{section name=pages start=0 step=1 loop=$tplvar.form.dcmts_pages}>
+		<li<{if $smarty.section.pages.index == $tplvar.page.page}> class="PageThis"<{/if}>><a href="excuse.php?oprt=<{$tplvar.page.oprt}>&page=<{$smarty.section.pages.index_next}>" title="Page <{$smarty.section.pages.index_next}>">[<{$smarty.section.pages.index_next}>]</a>
+		</li>
+		<{/section}>
+	</ul>
+	-->
+	<div id="MEXCSExcuseFormDocumentNewField">
+	<dl>
+		<dt><label for="MEXCSDocumentFormTitle"><{$smarty.const._MD_MEXCS_DOCUMENT_TITLE}></label></dt>
+		<dd><input type="text" id="MEXCSDocumentFormTitle" name="title" value="" /></dd>
+		<dt><label for="MEXCSDocumentFormUids"><{$smarty.const._MD_MEXCS_DOCUMENT_UIDS}></label></dt>
+		<dd>
+		<select id="MEXCSDocumentFormUids" name="uids[]" multiple="multiple" size="5">
+		<{html_options options=$tplvar.users selected=$tplvar.document.uids}>
+		</select>
+		<p><{$smarty.const._MD_MEXCS_DOCUMENT_UIDS_DESC}></p>
+		</dd>
+		<dt><{$smarty.const._MD_MEXCS_DOCUMENT_ULDFILE}></dt>
+		<dd>
+			<ul id="MEXCSDocumentFormFileField">
+			<li><input type="file" name="file[]" size="5" /></li>
+			</ul>
+			<ul>
+			<li id="MEXCSDocumentFormAddField" style="display: none;"><input type="button" value="<{$smarty.const._MD_MEXCS_DOCUMENT_ADDFIELD}>" /></li>
+			</ul>
+		</dd>
+	</dl>
+
+	</div>
+	</dd>
+	<dd><input type="submit" value="<{$smarty.const._SEND}>" /><input type="reset" value="<{$smarty.const._MD_MEXCS_RESET}>" /><input type="hidden" name="submitted" value="true" /></dd>
+</dl>
+<dl>
+</dl>
+</fieldset>
+</form>

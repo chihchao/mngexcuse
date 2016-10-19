@@ -1,0 +1,41 @@
+<dl>
+<dt><{$smarty.const._MD_MEXCS_INDEX_PGSEXCUSE}></dt>
+<dd>
+	<p><{$smarty.const._MD_MEXCS_INDEX_PGSEXCUSE_DESCRIPTION}></p>
+	<dl id="MEXCSIndexPGSExcuse">
+	<{foreach from=$tplvar.excuses.progress item=excuse}>
+	<dt><a href="excuse.php?oprt=viw&excs_id=<{$excuse.id}>" title="[<{$excuse.excuse_type}>] <{$excuse.date_bgn|date_format:'%Y-%m-%d %H:%M'}> - <{$excuse.date_end|date_format:'%Y-%m-%d %H:%M'}>">[<{$excuse.excuse_type}>] <{$excuse.date_bgn|date_format:'%Y-%m-%d %H:%M'}> - <{$excuse.date_end|date_format:'%Y-%m-%d %H:%M'}></a></dt>
+	<dd>
+		<dl>
+		<{foreach from=$excuse.phases item=phase}>
+		<div class="MEXCSExcusePhaseState<{$phase.state}>">
+		<dt><{$phase.phase}></dt>
+		<dd>
+			<ul>
+			<li><{$phase.checker_uname}></li>
+			<li><{$phase.state_string}></li>
+			</ul>
+		</dd>
+		</div>
+		<{/foreach}>
+		</dl>
+	</dd>
+	<{/foreach}>
+	</dl>
+</dd>
+<dt><{$smarty.const._MD_MEXCS_INDEX_CHKEXCUSE}></dt>
+<dd>
+	<p><{$smarty.const._MD_MEXCS_INDEX_CHKEXCUSE_DESCRIPTION}></p>
+	<dl>
+	<{foreach from=$tplvar.excuses.check item=excuse}>
+		<dt><a href="excuse.php?oprt=viw&excs_id=<{$excuse.id}>" title="[<{$excuse.excuse_type}>] <{$excuse.date_bgn|date_format:'%Y-%m-%d %H:%M'}> - <{$excuse.date_end|date_format:'%Y-%m-%d %H:%M'}>">[<{$excuse.excuse_type}>] <{$excuse.date_bgn|date_format:'%Y-%m-%d %H:%M'}> - <{$excuse.date_end|date_format:'%Y-%m-%d %H:%M'}></a></dt>
+		<dd>
+			<ul>
+			<li><{$smarty.const._MD_MEXCS_EXCUSE_APPLICANT}>: <{$excuse.uname}></li>
+			<li><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT}>: <{$excuse.date_count_day}><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_DAY}> <{$excuse.date_count_hour}><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_HOUR}></li>
+			</ul>
+		</dd>
+	<{/foreach}>
+	</dl>
+</dd>
+</dl>

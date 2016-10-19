@@ -1,0 +1,10 @@
+<ul>
+	<{foreach from=$tplvar.documents item=document name=documents}>
+	<li><a href="document.php?oprt=viw&dcmt_id=<{$document.id}>" title="<{$document.title}>">[<{$document.date_excuse|date_format:'%Y-%m-%d'}>] <{$document.title}></a></li>
+	<{/foreach}>
+</ul>
+<ul class="MEXCSPagelist">
+	<{section name=pages start=0 step=1 loop=$tplvar.page.pages}>
+	<li<{if $smarty.section.pages.index == $tplvar.page.page}> class="PageThis"<{/if}>><a href="document.php?oprt=lst&page=<{$smarty.section.pages.index}>" title="Page <{$smarty.section.pages.index_next}>">[<{$smarty.section.pages.index_next}>]</a></li>
+	<{/section}>
+</ul>

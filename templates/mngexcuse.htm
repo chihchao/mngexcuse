@@ -1,0 +1,84 @@
+<div id="MNGExcuse">
+
+<{include file='db:head.htm'}>
+<hr class="MEXCSSeparation" />
+
+<!-- title bgn  -->
+<div id="MEXCSTitle">
+<h3><{$tplvar.page.title}></h3>
+</div>
+<hr class="MEXCSSeparation" />
+<!-- title end  -->
+<!-- menu bgn  -->
+<div id="MEXCSMenu">
+<ul>
+<{if $tplvar.page.main_tpl == 'document'}>
+	<li><a href="document.php" title="<{$smarty.const._MD_MEXCS_HEAD_DOCUMENT}>"><{$smarty.const._MD_MEXCS_HEAD_DOCUMENT}></a></li>
+	<{if $tplvar.page.oprt != 'add'}>
+	<li><a href="document.php?oprt=add" title="<{$smarty.const._MD_MEXCS_DOCUMENT_ADDDOCUMENT}>"><{$smarty.const._MD_MEXCS_DOCUMENT_ADDDOCUMENT}></a></li>
+	<{/if}>
+	<{if $tplvar.page.oprt == 'viw' && $tplvar.user.write}>
+	<li><a href="document.php?oprt=edt&dcmt_id=<{$tplvar.document.id}>" title="<{$smarty.const._MD_MEXCS_DOCUMENT_EDTDOCUMENT}>"><{$smarty.const._MD_MEXCS_DOCUMENT_EDTDOCUMENT}></a></li>
+	<li><a href="document.php?oprt=del&dcmt_id=<{$tplvar.document.id}>" title="<{$smarty.const._MD_MEXCS_DOCUMENT_DELDOCUMENT}>"><{$smarty.const._MD_MEXCS_DOCUMENT_DELDOCUMENT}></a></li>
+	<{/if}>
+	<{if $tplvar.page.oprt == 'edt'}>
+	<li><a href="document.php?oprt=viw&dcmt_id=<{$tplvar.document.id}>" title="<{$smarty.const._MD_MEXCS_DOCUMENT_VIWDOCUMENT}>"><{$smarty.const._MD_MEXCS_DOCUMENT_VIWDOCUMENT}></a></li>
+	<{/if}>
+<{/if}>
+<{if $tplvar.page.main_tpl == 'excuse'}>
+	<{if $tplvar.page.oprt == 'viw'}>
+		<li><a href="print.php?oprt=excuse&excs_id=<{$tplvar.excuse.id}>" title="<{$smarty.const._MD_MEXCS_EXCUSE_PRINT}>"><{$smarty.const._MD_MEXCS_EXCUSE_PRINT}></a></li>
+		<li><a href="print.php?oprt=excuse&excs_id=<{$tplvar.excuse.id}>&substitute=1" title="<{$smarty.const._MD_MEXCS_EXCUSE_PRINTSUBSTITUTE}>"><{$smarty.const._MD_MEXCS_EXCUSE_PRINTSUBSTITUTE}></a></li>
+		<{if $tplvar.page.edit_excuse}>
+		<li><a href="excuse.php?oprt=edt&excs_id=<{$tplvar.excuse.id}>" title="<{$smarty.const._MD_MEXCS_EXCUSE_EDTEXCUSE}>"><{$smarty.const._MD_MEXCS_EXCUSE_EDTEXCUSE}></a></li>
+		<{/if}>
+		<{if $tplvar.page.delete_excuse}>
+		<li><a href="excuse.php?oprt=del&excs_id=<{$tplvar.excuse.id}>" title="<{$smarty.const._MD_MEXCS_EXCUSE_DELEXCUSE}>"><{$smarty.const._MD_MEXCS_EXCUSE_DELEXCUSE}></a></li>
+		<{/if}>
+		<{if $tplvar.user.substitute_mng && $tplvar.excuse.state != 4 && $tplvar.excuse.state != 2}>
+		<li><a href="substitute.php?oprt=cmt&excs_id=<{$tplvar.excuse.id}>" title="<{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE_COMMENT}>"><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE_COMMENT}></a></li>
+		<{/if}>
+	<{/if}>
+	<{if $tplvar.page.oprt == 'edt' || $tplvar.page.oprt == 'del'}>
+		<li><a href="excuse.php?oprt=viw&excs_id=<{$tplvar.excuse.id}>" title="<{$smarty.const._MD_MEXCS_EXCUSE_VIWEXCUSE}>"><{$smarty.const._MD_MEXCS_EXCUSE_VIWEXCUSE}></a></li>
+	<{/if}>
+<{/if}>
+<{if $tplvar.page.main_tpl == 'personnel'}>
+	<li><a href="personnel.php" title="<{$smarty.const._MD_MEXCS_EXCUSE_LIST_TITLE}>"><{$smarty.const._MD_MEXCS_EXCUSE_LIST_TITLE}></a></li>
+	<li><a href="personnel.php?oprt=cnt" title="<{$smarty.const._MD_MEXCS_EXCUSE_STATISTICS}>"><{$smarty.const._MD_MEXCS_EXCUSE_STATISTICS}></a></li>
+	<li><a href="personnel.php?oprt=lev" title="<{$smarty.const._MD_MEXCS_PERSONNEL_LEAVE_DAYS}>"><{$smarty.const._MD_MEXCS_PERSONNEL_LEAVE_DAYS}></a></li>
+<{/if}>
+<{if $tplvar.page.main_tpl == 'substitute'}>
+	<{if $tplvar.page.oprt == 'cmt'}>
+	<li><a href="substitute.php" title="<{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE}>"><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE}></a></li>
+	<li><a href="excuse.php?oprt=viw&excs_id=<{$tplvar.excuse.id}>" title="<{$smarty.const._MD_MEXCS_EXCUSE_VIWEXCUSE}>"><{$smarty.const._MD_MEXCS_EXCUSE_VIWEXCUSE}></a></li>
+	<{/if}>
+<{/if}>
+</ul>
+</div>
+<hr class="MEXCSSeparation" />
+<!-- menu end  -->
+<!-- content bgn  -->
+<div id="MEXCSContent">
+<{if $tplvar.page.main_tpl == 'index'}>
+	<{include file='db:idx.htm'}>
+<{elseif $tplvar.page.main_tpl == 'excuse'}>
+	<{if $tplvar.page.oprt == 'apl' || $tplvar.page.oprt == 'edt'}><{include file='db:excuse_form.htm'}><{/if}>
+	<{if $tplvar.page.oprt == 'viw'}><{include file='db:excuse_view.htm'}><{/if}>
+	<{if $tplvar.page.oprt == 'lst'}><{include file='db:excuse_list.htm'}><{/if}>
+	<{if $tplvar.page.oprt == 'del'}><{include file='db:excuse_sdel.htm'}><{/if}>
+<{elseif $tplvar.page.main_tpl == 'document'}>
+	<{if $tplvar.page.oprt == 'add' || $tplvar.page.oprt == 'edt'}><{include file='db:document_form.htm'}><{/if}>
+	<{if $tplvar.page.oprt == 'lst'}><{include file='db:document_list.htm'}><{/if}>
+	<{if $tplvar.page.oprt == 'viw'}><{include file='db:document_view.htm'}><{/if}>
+<{elseif $tplvar.page.main_tpl == 'personnel'}>
+	<{if $tplvar.page.oprt == 'lst'}><{include file='db:personnel_list.htm'}><{/if}>
+	<{if $tplvar.page.oprt == 'cnt'}><{include file='db:personnel_user.htm'}><{/if}>
+	<{if $tplvar.page.oprt == 'lev'}><{include file='db:personnel_lvfm.htm'}><{/if}>
+<{elseif $tplvar.page.main_tpl == 'substitute'}>
+	<{if $tplvar.page.oprt == 'cmt'}><{include file='db:substitute_form.htm'}><{/if}>
+	<{if $tplvar.page.oprt == 'lst'}><{include file='db:substitute_list.htm'}><{/if}>
+<{/if}>
+</div>
+<!-- content end  -->
+</div>

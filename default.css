@@ -1,0 +1,132 @@
+#MNGExcuse { position: relative; }
+
+#MNGExcuse p, #MNGExcuse input, #MNGExcuse textarea, #MNGExcuse select, #MNGExcuse option, #MNGExcuse th, #MNGExcuse td, #MNGExcuse dt, #MNGExcuse dd, #MNGExcuse a, #MNGExcuse li {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #606060;
+	font-size: 10pt;
+	line-height: 150%;
+}
+#MNGExcuse p { margin: 0; padding: 5px 0; }
+
+#MNGExcuse a { font-weight: bold; text-decoration: none; }
+#MNGExcuse a:hover { text-decoration: underline; }
+
+#MNGExcuse table { border-collapse: collapse; width: 100%; border-left:  1px solid #6078BF; border-top: 1px solid #6078BF; }
+#MNGExcuse table th { background: #6078BF; color: #FFFFFF; text-align: center; }
+#MNGExcuse table td, #MNGExcuse table th { vertical-align: top; padding: 5px; border-right:  1px solid #6078BF; border-bottom: 1px solid #6078BF; }
+#MNGExcuse table caption { padding: 5px 0 5px 25px; background: url("images/icon_caption.png") no-repeat 0; text-align: left; font-weight: bold; }
+
+#MNGExcuse h2 { border-top: 32px solid #6078BF; margin: 0 0 5px 0; padding: 5px 0; font-size: 12pt; }
+
+#MEXCSToolbar {
+	position: absolute;
+	top: 0;
+	right: 10px;
+	margin: 0;
+	padding: 5px 0;
+}
+#MEXCSToolbar li {
+	margin: 0;
+	padding: 0 5px;
+	display: inline;
+	list-style-type: none;
+	line-height: 150%;
+}
+#MEXCSToolbar a { color: #6078BF; background: #FFF; font-size: 10pt; font-weight: bold; border: 2px solid #FFF; padding: 1px 5px; }
+#MEXCSToolbar a:hover { color: #FFF; background: #6078BF; font-size: 10pt; font-weight: bold; text-decoration: none; }
+
+#MEXCSMenu { margin: 0 0 0 125px; padding: 0; }
+#MEXCSMenu ul { margin: 0; padding: 0; }
+#MEXCSMenu li {
+	float: left;
+	margin: 0;
+	padding: 2px 5px;
+	list-style-type: none;
+	line-height: 100%;
+}
+#MEXCSMenu a { font-size: 10pt; font-weight: normal; background: #999; color: #FFF; border: 1px solid #999; padding: 1px 5px; }
+#MEXCSMenu a:hover { text-decoration: none; background: #FFF; color: #999; }
+
+#MNGExcuse h3 {
+	margin: 0 0 2px 0;
+	padding: 5px 0;
+	font-size: 10pt;
+	width: 120px;
+	height: 22px;
+	float: left;
+	background: url("images/bkgd_h3.png") no-repeat 0 0;
+	color: #6078BF;
+	text-align: center;
+}
+
+#MNGExcuse dl { margin: 0; padding: 0; }
+#MNGExcuse dl dt {
+	clear: both;
+	margin: 0;
+	padding: 5px 0 5px 25px;
+	font-weight: bold;
+	background: url("images/icon_dt.png") no-repeat 0 5px;
+}
+#MNGExcuse dl dd {
+	margin: 0;
+	padding: 5px 0 5px 25px;
+}
+#MNGExcuse dl dd dl dt { background: url("images/icon_dt_dt.png") no-repeat 0 5px; }
+#MNGExcuse dl dd dl dd dl dt { background: url("images/icon_dt_dt_dt.png") no-repeat 0 5px; }
+
+#MNGExcuse form { margin: 0; padding: 5px 0; font-size: 10pt; }
+#MNGExcuse fieldset { padding: 5px; border: 1px solid #6078BF; }
+#MNGExcuse legend { margin: 0; padding: 0 5px; font-weight: bold; font-size: 10pt; }
+#MNGExcuse textarea { width: 350px; height: 100px;}
+
+#MEXCSContent { margin: 0; clear: both; border-top: 5px double #6078BF;}
+#MEXCSContent ul { margin: 0; padding: 0; }
+#MEXCSContent ul li {
+	margin: 0;
+	padding: 5px 0 5px 25px;
+	text-indent: 0;
+	list-style-type: none;
+	list-style-position: outside;
+	background: url("images/icon_li.png") no-repeat 0 5px;
+}
+#MEXCSIndexPGSExcuse dt { clear: both; }
+#MEXCSIndexPGSExcuse dd dl div { float: left; margin: 0 1px 0 0; padding: 5px; border: 1px solid #6078BF; }
+#MNGExcuse #MEXCSIndexPGSExcuse dd dl div dt { margin: 0; padding: 0; background: url(""); }
+#MEXCSIndexPGSExcuse dd dl dd { margin: 0; padding: 0; }
+#MEXCSExcuseProcedure dt { clear: both; float: left; margin-right: 5px; }
+#MEXCSExcuseFormSubstituteField textarea { height: 250px; border: 1px solid #6078BF; }
+
+#MEXCSExcuseViewPhase textarea { width: 200px; height: 50px; }
+#MEXCSExcuseViewPhase table td { border-right: 0; }
+#MEXCSExcuseViewPhase table { width: auto; border-right: 1px solid #6078BF; }
+
+#MEXCSDocumentFileList div { float: left; width: 25%; }
+#MEXCSDocumentFileList div dd { margin: 0; padding: 0; text-align: center; }
+#MEXCSDocumentFileList div dd li { margin: 0; padding: 0;background: url(); }
+#MEXCSDocumentFileShow { clear: both; }
+#MEXCSDocumentFileShow img { margin: 0; padding: 5px; border: 1px solid #6078BF; }
+
+#MNGExcuse #MEXCSExcuseFormSubstituteDESC {
+	width: 600px;
+	height: 400px;
+}
+
+.MEXCSSeparation { display: none; }
+.MEXCSExcuseState0 { background: #809FFF; }
+.MEXCSExcuseState1 { background: #BFCFFF; }
+.MEXCSExcuseState2 { background: #FFFFBF; }
+.MEXCSExcuseState3 { background: #E6ECFF; }
+.MEXCSExcuseState4 { background: #BFBF60; }
+.MEXCSExcusePhaseState0 { background: #809FFF; }
+.MEXCSExcusePhaseState1 { background: #BFCFFF; }
+.MEXCSExcusePhaseState2 { background: #BFFFBF; }
+.MEXCSExcusePhaseState3 { background: #E6ECFF; }
+.MEXCSExcusePhaseState4 { background: #FFFFBF; }
+.MEXCSFormFieldShort { width: 30px; }
+.MEXCSDocumentFileListNewline { clear: both; }
+#MNGExcuse .MEXCSPagelist li { margin: 0; padding: 0 5px; display: inline; background: url(); }
+#MNGExcuse .MEXCSPagelist li a { margin: 0; padding: 0 5px; font-weight: bold; }
+.MEXCSFloatLeftHalf { float: left; width: 50%; }
+.MEXCSFloatRightHalf { float: right; width: 50%; }
+.MEXCSDisplaynone { display: none; }
+#MNGExcuse .PageThis a { background: #CCC; }

@@ -1,0 +1,132 @@
+<dl>
+<div class="MEXCSExcuseState<{$tplvar.excuse.state}>">
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_PHASE_STATE}></dt>
+<dd>
+<ul>
+	<li><{$smarty.const._MD_MEXCS_EXCUSE_VIWDESC_1}><{$tplvar.excuse.state_string}></li>
+	<{if $tplvar.excuse.del_comment}>
+	<li><{$smarty.const._MD_MEXCS_EXCUSE_VIWDESC_2}><{$tplvar.excuse.del_comment.uname}></li>
+	<li><{$smarty.const._MD_MEXCS_EXCUSE_VIWDESC_3}><{$tplvar.excuse.del_comment.date_time|date_format:'%Y-%m-%d %H:%M'}></li>
+	<li><{$smarty.const._MD_MEXCS_EXCUSE_VIWDESC_4}><p><{$tplvar.excuse.del_comment.comment|nl2br}></p></li>
+	<{/if}>
+</ul>
+</dd>
+</div>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_APPLICANT}></dt>
+<dd><{$tplvar.excuse.uname}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_APPOINTMENT}></dt>
+<dd><{$tplvar.excuse.appointment}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_EXCUSETYPE}></dt>
+<dd><{$tplvar.excuse.excuse_type}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DESCRIPTION}></dt>
+<dd><{$tplvar.excuse.description|nl2br}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DATEBGN}></dt>
+<dd><{$tplvar.excuse.date_bgn|date_format:'%Y-%m-%d %H:%M'}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DATEEND}></dt>
+<dd><{$tplvar.excuse.date_end|date_format:'%Y-%m-%d %H:%M'}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT}></dt>
+<dd><{$tplvar.excuse.date_count_day}><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_DAY}> <{$tplvar.excuse.date_count_hour}><{$smarty.const._MD_MEXCS_EXCUSE_DATECOUNT_HOUR}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DATETIME}></dt>
+<dd><{$tplvar.excuse.date_time|date_format:'%Y-%m-%d %H:%M'}></dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_PHASE}></dt>
+<dd id="MEXCSExcuseViewPhase">
+	<table>
+	<thead><tr>
+	<th><{$smarty.const._MD_MEXCS_EXCUSE_PHASE}></th>
+	<th><{$smarty.const._MD_MEXCS_EXCUSE_PHASE_CHECKER}></th>
+	<th><{$smarty.const._MD_MEXCS_EXCUSE_PHASE_STATE}></th>
+	<th><{$smarty.const._MD_MEXCS_EXCUSE_PHASE_COMMENT}></th>
+	</tr></thead>
+	<tbody>
+	<{foreach from=$tplvar.excuse.phases item=phase}>
+	<tr class="MEXCSExcusePhaseState<{$phase.state}>">
+	<td><{$phase.phase}></td>
+	<td><{$phase.checker_uname}></td>
+	<td><{$phase.state_string}><{if $phase.date_time != ''}>(<{$phase.date_time|date_format:'%Y-%m-%d %H:%M'}>)<{/if}></td>
+	<td>
+		<ul>
+			<{foreach from=$phase.comments item=comment}>
+			<li>[<{$comment.uname}>] <{$comment.date_time|date_format:'%Y-%m-%d %H:%M'}><br /><{$comment.comment|nl2br}></li>
+			<{/foreach}>
+		</ul>
+		<{if ($phase.state == '1' || $phase.state == '2') && (($phase.checker == $tplvar.user.uid) || ($tplvar.excuse.uid == $tplvar.user.uid && ($phase.comment != '' || $phase.state == '2')))}>
+		<form action="<{$smarty.server.REQUEST_URI}>" method="post">
+		<fieldset>
+		<legend>
+		<{if $phase.checker == $tplvar.user.uid}>
+		<{$smarty.const._MD_MEXCS_EXCUSE_PHASE_COMMENT}>
+		<{else}>
+		<{$smarty.const._MD_MEXCS_EXCUSE_PHASE_COMMENT_REPLY}>
+		<{/if}>
+		</legend>
+		<{if $phase.checker == $tplvar.user.uid}>
+		<p>
+		<input type="radio" name="state" value="3" checked="checked" /><{$smarty.const._MD_MEXCS_EXCUSE_PHASE_STATE_3}>
+		<input type="radio" name="state" value="2" /><{$smarty.const._MD_MEXCS_EXCUSE_PHASE_STATE_2}>
+		<{if $phase.reject == 1}>
+		<input type="radio" name="state" value="4" /><{$smarty.const._MD_MEXCS_EXCUSE_PHASE_STATE_4}>
+		<{/if}>
+		<input type="hidden" name="phase_check" value="true">
+		</p>
+		<{/if}>
+		<p><textarea name="comment"></textarea></p>
+		<input type="hidden" name="phse_id" value="<{$phase.id}>">
+		<input type="submit" value="<{$smarty.const._SEND}>"><input type="hidden" name="submitted" value="true" />
+		</fieldset>
+		</form>
+		<{/if}>
+	</td>
+	</tr>
+	<{/foreach}>
+	</tbody>
+	</table>
+</dd>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE}></dt>
+<dd>
+	<p><{$tplvar.excuse.substitute.description}></p>
+</dd>
+<{if $tplvar.excuse.substitute.comment}>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_SUBSTITUTE_COMMENT}></dt>
+<dd><{$tplvar.excuse.substitute.comment|nl2br}></dd>
+<{/if}>
+<dt><{$smarty.const._MD_MEXCS_EXCUSE_DOCUMENT}></dt>
+<dd>
+<{if $tplvar.excuse.document}>
+	<dl>
+		<dt><{$smarty.const._MD_MEXCS_DOCUMENT_TITLE}></dt>
+		<dd><{$tplvar.excuse.document.title}></dd>
+		<dt><{$smarty.const._MD_MEXCS_DOCUMENT_DESCRIPTION}></dt>
+		<dd><{$tplvar.excuse.document.description|nl2br}></dd>
+		<dt><a name="MEXCSDocumentFile"></a><{$smarty.const._MD_MEXCS_DOCUMENT_FILE}></dt>
+		<dd>
+
+		<div id="MEXCSDocumentFileArea">
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript">
+			function showImage(e) {
+				var src = $(e.target).attr('src');
+				src = src.replace('oprt=tn&', '');
+				$("#MEXCSDocumentFileShow").html('<input type="button" value="<{$smarty.const._MD_MEXCS_DOCUMENT_FILE_VIWCLOSE}>" onclick="hideImage();"><br /><img src="' + src + '" />');
+			}
+			function hideImage() { $("#MEXCSDocumentFileShow").html(''); }
+			$(document).ready(function(e){
+				$(".MEXCSDocumentFileListTN").click(showImage);
+			});
+			</script>	
+			<dl id="MEXCSDocumentFileList">
+				<{foreach from=$tplvar.excuse.document.files item=file name=files}>
+				<div<{if $smarty.foreach.files.iteration % 4 == 1}> class="MEXCSDocumentFileListNewline"<{/if}>>
+				<dt><a href="file.php?file_id=<{$file.id}>&excs_id=<{$tplvar.excuse.id}>" title="<{$file.file_name}>"><{$file.file_name}></a></dt>
+				<{if $file.img}>
+				<dd><a href="#MEXCSDocumentFile"><img class="MEXCSDocumentFileListTN" src="file.php?oprt=tn&file_id=<{$file.id}>&excs_id=<{$tplvar.excuse.id}>" /></a></dd>
+				<{/if}>
+				</div>
+				<{/foreach}>
+			</dl>
+		</div>
+		<div id="MEXCSDocumentFileShow"></div>
+		</dd>
+	</dl>
+<{/if}>
+</dd>
+</dl>
